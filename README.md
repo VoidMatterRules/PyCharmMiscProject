@@ -24,14 +24,10 @@ Tkinter (included with most Python installations)
 How to Run
 From Windows Command Prompt (assuming Python is installed and added to PATH):
 
-bash
-Kopieren
-Bearbeiten
 python script.py
+
 Or, if using Python 3 specifically:
 
-bash
-Kopieren
-Bearbeiten
 python3 script.py
+
 If double-clicking the file doesn't work, use the console method to ensure error messages are visible.
