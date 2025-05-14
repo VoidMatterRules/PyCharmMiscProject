@@ -22,3 +22,7 @@ Or, if using Python 3 specifically:
 python3 script.py
 
 If double-clicking the file doesn't work, use the console method to ensure error messages are visible.
+
+
+
+- All Ai as idk Python and had to help out some ppl from my school
