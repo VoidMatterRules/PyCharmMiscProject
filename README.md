@@ -1,27 +1,18 @@
 Connect 4 – Tkinter GUI Game
 A simple yet interactive implementation of the classic Connect 4 (4 Gewinnt) game using Python and the Tkinter GUI library. Play against a friend on the same computer and enjoy smooth drop animations, instant input skipping, and spam-resistant logic!
 
-Features
-Two-player local play (Red vs Yellow)
+Features:
+- Two-player local play (Red vs Yellow)
+- Win and draw detection
+- Auto reset after game over
 
-Animated falling pieces
 
-Click-to-skip animation
+Requirements:
+- Python 3.7+
+- Tkinter (included with most Python installations)
 
-Input queuing during animation
 
-Spam-resistant input handling
-
-Win and draw detection
-
-Auto reset after game over
-
-Requirements
-Python 3.7+
-
-Tkinter (included with most Python installations)
-
-How to Run
+How to Run:
 From Windows Command Prompt (assuming Python is installed and added to PATH):
 
 python script.py
