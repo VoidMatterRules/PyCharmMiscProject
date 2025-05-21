@@ -8,6 +8,7 @@ CELL_SIZE = 80
 
 class Connect4GUI:
     def __init__(self, root):
+        # Initializes the GUI, game state, and sets up the canvas
         self.root = root
         self.root.title("4 Gewinnt")
         self.board = np.full((ROWS, COLS), ' ')
@@ -25,6 +26,7 @@ class Connect4GUI:
         self.active_animation = None
 
     def draw_board(self):
+        # Draws the current game board with pieces on the canvas
         self.canvas.delete("all")
         for r in range(ROWS):
             for c in range(COLS):
@@ -35,9 +37,11 @@ class Connect4GUI:
                 self.canvas.create_oval(x0+5, y0+5, x1-5, y1-5, fill=self.get_color(self.board[r][c]))
 
     def get_color(self, piece):
+        # Returns the corresponding color for each piece type
         return {"X": "red", "O": "yellow"}.get(piece, "white")
 
     def click(self, event):
+        # Handles mouse click events to place a piece
         if self.game_over:
             return
 
@@ -60,15 +64,18 @@ class Connect4GUI:
         self.animate_drop()
 
     def is_valid_location(self, col):
+        # Checks if the top cell in the column is empty
         return self.board[0][col] == ' '
 
     def get_next_open_row(self, col):
+        # Returns the lowest empty row in a given column
         for r in range(ROWS - 1, -1, -1):
             if self.board[r][col] == ' ':
                 return r
         return None
 
     def animate_drop(self):
+        # Animates a piece dropping down to its position
         if not self.active_animation:
             return
 
@@ -78,7 +85,6 @@ class Connect4GUI:
         piece = data["piece"]
         current_row = data["current_row"]
 
-        # Clear previous falling stone
         if current_row > 0:
             self.canvas.create_oval(
                 col * CELL_SIZE + 5,
@@ -88,7 +94,6 @@ class Connect4GUI:
                 fill="white", outline=""
             )
 
-        # Draw current falling stone
         self.canvas.create_oval(
             col * CELL_SIZE + 5,
             current_row * CELL_SIZE + 5,
@@ -104,6 +109,7 @@ class Connect4GUI:
             self.finish_turn(col, target_row, piece)
 
     def skip_animation(self):
+        # Immediately places the piece and finishes the turn, skipping animation
         if self.active_animation:
             col = self.active_animation["col"]
             row = self.active_animation["row"]
@@ -120,7 +126,8 @@ class Connect4GUI:
             self.finish_turn(col, row, piece)
 
     def finish_turn(self, col, row, piece):
-        self.board[row][col] = piece  # <-- Only here
+        # Completes the player's turn by updating the board and checking game status
+        self.board[row][col] = piece
         self.draw_board()
         self.active_animation = None
         self.is_animating = False
@@ -138,6 +145,7 @@ class Connect4GUI:
         else:
             self.turn += 1
 
+        # Handle any click that occurred during animation
         if self.pending_click is not None:
             next_col = self.pending_click
             self.pending_click = None
@@ -145,6 +153,7 @@ class Connect4GUI:
             self.click(fake_event)
 
     def winning_move(self, piece):
+        # Checks for 4 connected pieces in all directions (horizontal, vertical, diagonal)
         for c in range(COLS - 3):
             for r in range(ROWS):
                 if all(self.board[r][c + i] == piece for i in range(4)):
@@ -164,9 +173,11 @@ class Connect4GUI:
         return False
 
     def is_draw(self):
+        # Checks if the board is full with no winner
         return all(self.board[0][c] != ' ' for c in range(COLS))
 
     def reset_game(self):
+        # Resets the game state and redraws the board
         self.board = np.full((ROWS, COLS), ' ')
         self.turn = 0
         self.game_over = False
@@ -176,6 +187,7 @@ class Connect4GUI:
         self.draw_board()
 
 if __name__ == "__main__":
+    # Starts the game
     root = tk.Tk()
     game = Connect4GUI(root)
     root.mainloop()
